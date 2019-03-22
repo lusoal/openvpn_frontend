@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Logged Users</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    setTimeout(function() {
+      window.location.reload();
+    }, 5000)
+  </script>
+
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class="container">
+  <h2>Usuários Logados</h2>
+  <p>Informações de usuarios logados no servidor de OpenVPN:</p>
+  <form action="/">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Ultima Conexão</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for key, value in dict_users.items()%}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+        <td><img src="https://gifimage.net/wp-content/uploads/2018/04/online-gif-3.gif" alt="Online" height="42" width="100"></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-default">Atualizar</button>
+  </form>
+</div>
+
+</body>
+</html>
