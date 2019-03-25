@@ -1,5 +1,6 @@
 import yaml
-from flask import Flask, render_template, jsonify, request, Response, redirect, url_for
+from flask import Flask, render_template, jsonify, \
+                                request, Response, redirect, url_for
 
 from service.vpn import Vpn
 
@@ -41,18 +42,6 @@ def remove_user():
     elif request.method == 'POST':
         user_remove = vpn.remover_user(request.values.get('my_user'), configs['openvpn']['pki_folder'])
         return redirect(url_for('remove_user'))
-        
-        
-
-
-#@app.route('/json')
-#def retornar_json_usuarios():
-#    network_obj = network.Network(configs['vpn']['host'], configs['vpn']['user'], configs['vpn']['key_path'])
-#    logged_users = network_obj.logged_users()
-#
-#    return jsonify(logged_users)
-
-    
 
 if __name__ == '__main__':
     app.run()
