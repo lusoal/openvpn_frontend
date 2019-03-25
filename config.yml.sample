@@ -1,4 +1,7 @@
 vpn:
   host: 
   user: 
-  key_path: 
+  key_path:
+openvpn:
+  folder: 
+  pki_folder: 

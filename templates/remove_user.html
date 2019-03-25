@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Remover Usuario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <div class='container'>
+        <br>
+        <br>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in users %}
+                <form action="/remove_user" method="post">
+                    <tr>
+                        <td><input type="hidden" name="my_user" value="{{ usuario }}">{{ usuario }}</td>
+                        <td><button type="submit" class="btn btn-danger">Remover</button></td>
+                    </tr>
+                </form>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/"><button type="button" class="btn btn-secondary">Voltar</button></a>
+    </div>
+</body>
+
+</html>

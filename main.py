@@ -1,19 +1,20 @@
 import yaml
-from flask import Flask, render_template, jsonify, request, Response
+from flask import Flask, render_template, jsonify, request, Response, redirect, url_for
 
-from networking.vpn import * 
+from service.vpn import Vpn
 
 app = Flask(__name__)
 configs = yaml.load(open('config.yml'))
 
+vpn = Vpn(configs['vpn']['host'], configs['vpn']['user'], configs['vpn']['key_path'])
+
 @app.route('/', methods=['GET'])
 def get_index():
-    
     return render_template('index.html')
 
 @app.route('/get_users', methods=['GET'])
 def mostrar_usuarios():
-    logged = logged_users(configs['vpn']['host'], configs['vpn']['user'], configs['vpn']['key_path'])
+    logged = vpn.logged_users()
     print (logged)
     return render_template('users.html', dict_users=logged)
 
@@ -24,14 +25,25 @@ def add_user():
     elif request.method == 'POST':
         #Adicionar usuario
         username = request.values.get('usuario')
-        user_add = adicionar_user(configs['vpn']['host'], configs['vpn']['user'], configs['vpn']['key_path'], username)
-        
+        user_add = vpn.adicionar_user(username)
         if user_add:
             print (user_add)
             #Content to Download
             return Response(user_add, mimetype='application/text', headers={'Content-Disposition':'attachment;filename={}.ovpn'.format(username)})
         else:
             return "Erro"
+
+@app.route('/remove_user', methods=['GET', 'POST'])
+def remove_user():
+    if request.method == 'GET':
+        usuarios = vpn.list_existing_users(configs['openvpn']['pki_folder'])
+        return render_template('remove_user.html', users=usuarios)
+    elif request.method == 'POST':
+        user_remove = vpn.remover_user(request.values.get('my_user'), configs['openvpn']['pki_folder'])
+        return redirect(url_for('remove_user'))
+        
+        
+
 
 #@app.route('/json')
 #def retornar_json_usuarios():
