@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  application:
+      build: .
+      ports:
+        - "5000:5000"
+      restart: always
+      volumes:
+        - ./:/app
+      #Define this for your credentials
+      environment:
+        APP_USER: 
+        APP_PASS: 

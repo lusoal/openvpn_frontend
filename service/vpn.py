@@ -2,7 +2,7 @@
 #import paramiko
 from datetime import datetime
 
-from shell import connect_ssh
+from service.shell import connect_ssh
 
 class Vpn:
     

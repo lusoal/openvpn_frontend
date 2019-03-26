@@ -1,4 +1,5 @@
 config.yml
+*.pem
 *venv
 venv/
 venv/*
